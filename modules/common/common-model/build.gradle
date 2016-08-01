@@ -1,0 +1,19 @@
+dependencies {
+	compile("org.springframework:spring-beans:${springFrameworkVersion}")
+	compile("org.springframework:spring-core:${springFrameworkVersion}")
+	compile("org.springframework:spring-context:${springFrameworkVersion}")
+	compile("org.springframework:spring-tx:${springFrameworkVersion}")
+	//compile("org.springframework:spring-orm:${springFrameworkVersion}")
+	/*compile("org.springframework.data:spring-data-commons:1.11.0.RELEASE"){
+		exclude group:"org.springframework"
+	}*/
+    /*compile("org.springframework.data:spring-data-jpa:${springDataVersion}"){
+		exclude group:"org.springframework"
+	}*/
+	compile("org.springframework.data:spring-data-mongodb:${springDataMongoDBVersion}"){
+		exclude group:"org.springframework"
+	}
+	compile("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
+	compile("joda-time:joda-time:${jodaTimeVersion}")
+	
+}

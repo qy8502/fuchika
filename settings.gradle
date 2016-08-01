@@ -1,0 +1,37 @@
+include "common:common-api"
+include "common:common-model"
+include "common:common-web"
+
+include "user:user-api"
+include "user:user-impl"
+include "user:user-model"
+include "user:user-repository"
+include "user:user-web"
+
+include "project:project-api"
+include "project:project-impl"
+include "project:project-model"
+include "project:project-repository"
+include "project:project-web"
+
+include "web:web-site"
+include "web:web-ui"
+
+rootProject.name = 'fuchika'
+
+configureProjects( rootProject )
+
+def configureProjects( root )
+{
+    root.children.each { p ->
+        configureProject( p )
+        configureProjects( p )
+    }
+}
+
+def configureProject( p )
+{
+    String dirName = p.path.substring( 1 ).replace( ':', '/' )
+    p.projectDir = new File( (File) settingsDir, "modules/${dirName}" )
+    assert p.projectDir.isDirectory()
+}

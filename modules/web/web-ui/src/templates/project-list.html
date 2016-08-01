@@ -1,0 +1,45 @@
+<div class="list-group project-list">
+    <div ng-repeat="projectItem in projectList" id="{{prefix}}-{{projectItem.id}}"
+         class="list-group-item list-item">
+        <div class="row">
+            <div class="col-md-9 project-info"><h4><span class="glyphicon"
+                                                         ng-class="{'glyphicon-fire':!projectItem.isCompleted,'glyphicon-ok':!!projectItem.isCompleted}"></span>
+                <a href="/#/project/{{projectItem.id}}">{{projectItem.title}}</a></h4>
+
+                <div class="info-top">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-primary btn-xs"
+                                ng-class="{'active':projectItem.isLike}"><span
+                                class="glyphicon glyphicon-flash" aria-hidden="true"></span>
+                            <strong>好 ({{projectItem.likeCount}}) </strong>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-xs" ng-class="{'active':projectItem.isFollow}"><span
+                                class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                            <strong>关注 ({{projectItem.followCount}}) </strong>
+                        </button>
+                    </div>
+                    <span class="info-item">{{projectItem.startDate | date:'yyyy年M月d日'}} 到 {{projectItem.endDate | date:'yyyy年M月d日'}}</span>
+                    <span class="info-item">创建者：{{projectItem.owner.name}}</span>
+                                <span class="info-item" ng-if="projectItem.tags && projectItem.tags.length">标签：<span
+                                        ng-repeat="tag in projectItem.tags"><a
+                                        href="/#/project/find?tag={{tag}}">{{tag}}</a> </span></span>
+                </div>
+
+                <div class="info-content">{{projectItem.description}}
+                </div>
+            </div>
+            <div class="col-md-3 partner-imgs">
+                <span class="info-item">参与伙伴 (<a
+                        href="/#/project/{{projectItem.id}}">{{projectItem.partners.length}}</a>)：</span>
+
+                <div ng-repeat="partner in projectItem.partners"><a
+                        href="/#/partner/{{partner.id}}"><img title="{{partner.name}}"
+                                                              class="img-rounded"
+                                                              ng-src="{{partner.picture || '/img/user-picture.jpg'}}"
+                                                              errSrc="/img/user-picture.jpg"/></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+         

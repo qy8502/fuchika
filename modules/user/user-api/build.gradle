@@ -1,0 +1,7 @@
+dependencies {
+	compile project (":common:common-api")
+	compile project (":user:user-model")
+	compile("org.springframework.integration:spring-integration-mail:${springIntegrationVersion}"){
+		//exclude group:"org.springframework"
+	}
+}

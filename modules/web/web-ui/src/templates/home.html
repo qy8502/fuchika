@@ -1,0 +1,33 @@
+<div id="headOpenBtn" ng-show="headClosed" ng-click="headClosed = !headClosed">
+    <i class="glyphicon glyphicon-chevron-down"></i>
+</div>
+<header id="head" class="home" uib-collapse="headClosed">
+    <div class="container">
+        <div id="introduction">
+            <div class="words">
+                {{word}}
+            </div>
+        </div>
+        <div class="row">
+            <div id="introduction-right" class="col-md-5 pull-right">
+                <h3>分享你的项目，快快把它完成</h3>
+
+                <p>
+                    告别拖延症，咒语“咐叱喀”！咐叱喀（FUCHIKA.COM）是一个通过交流分享自己参与的项目或个人的日程，促使自己完成目标的社交型网站。将你进行的项目或者下定决心要做到的事情至于阳光下晒晒晒，由群众们雪亮的眼睛来盯着你是否能说到做到，好面子的你还好意思偷懒拖延吗？！伙伴们是温馨加油，还是无情吐槽，就要看你的人品了。咐叱喀则会记录着你努力的过程，最终回顾完成目标的历程也会给你带来愉悦的成就感哦。</p>
+                <a href="/#/schedule" class="btn btn-primary btn-lg" role="button">开启效率之旅！</a>
+            </div>
+            <div id="introduction-left" class="col-md-7  pull-right"></div>
+        </div>
+    </div>
+    <div id="headCloseBtn" ng-click="headClosed = !headClosed">
+        <i class="glyphicon glyphicon-chevron-up"></i>
+    </div>
+</header>
+<div class="container" style="min-height: 600px">
+    <div class="row">
+        <div class="col-md-9" role="main">
+        </div>
+        <div class="col-md-3" role="complementary">
+        </div>
+    </div>
+</div>

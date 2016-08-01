@@ -1,0 +1,9 @@
+dependencies {
+	compile project(':user:user-impl')
+	compile("org.springframework.security:spring-security-config:${springSecurityVersion}"){
+		exclude group:"org.springframework"
+	}
+	compile("org.springframework.security:spring-security-web:${springSecurityVersion}"){
+		exclude group:"org.springframework"
+	}
+}

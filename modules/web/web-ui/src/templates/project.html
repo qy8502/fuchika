@@ -1,0 +1,145 @@
+<!--<header id="head">-->
+<!--<div class="container">-->
+<!--<h1>-->
+<!--活动-->
+<!--</h1>-->
+
+<!--<p>-->
+<!--通过创建和参与项目，可以与伙伴们完成共同的目标。当然你也可以规划一个个人项目来实现自己的目标。但是在“咐叱喀”里，就算是只属于个人的项目，你的伙伴以及访客们也是可以看到的，并且可以为你实现目标而打气鼓励，坏蛋们自然也会开始吐槽……</p>-->
+<!--</div>-->
+<!--</header>-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-9" role="main">
+
+            <div id="projectListOwn">
+                <div class="page-header">
+                    <h3>
+                        我的项目
+                        <small>我组织的项目，或者我的个人目标</small>
+                    </h3>
+                </div>
+                <div class="toolbar">
+                    <script type="text/ng-template" id="createProjectModal.html">
+                        <div class="modal-header">
+                            <h3 class="modal-title">创建项目</h3>
+                        </div>
+                        <form method="post" ng-submit="createProject()" name="createProjectForm">
+                            <div class="modal-body">
+                                <div class="form-group has-feedback" ng-class="{ 'has-error' : createProjectForm.title.$invalid && createProjectForm.title.$dirty }">
+                                    <input class="form-control input-lg" type="text" name="title" ng-model="project.title" placeholder="请为您的项目输入一个标题。" required autofocus>
+                                    <span class="ion-person form-control-feedback"></span>
+                                    <div class="help-block text-danger" ng-if="createProjectForm.title.$dirty" ng-messages="createProjectForm.title.$error">
+                                        <div ng-message="required">必须为您的项目命名。</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit" ng-disabled="createProjectForm.$invalid">创建
+                                </button>
+                                <button class="btn btn-warning" type="button" ng-click="cancel()">取消</button>
+                            </div>
+                        </form>
+                    </script>
+                    <button class="btn btn-default " type="button" ng-click="openCreateProjectModal()">创建一个项目</button>
+                </div>
+                <project-list prefix="projectOwn" project-list="projectListOwn"></project-list>
+            </div>
+            <div id="projectListJoin">
+                <div class="page-header">
+                    <h3>
+                        我参与的项目
+                        <small>加入集体项目，沟通合作是王道</small>
+                    </h3>
+                </div>
+                <project-list prefix="projectJoin" project-list="projectListJoin"></project-list>
+            </div>
+            <div id="projectListFollow">
+                <div class="page-header">
+                    <h3>
+                        我关注的项目
+                        <small>蛮有趣的项目，我等着看结果</small>
+                    </h3>
+                </div>
+                <project-list prefix="projectFollow" project-list="projectListFollow"></project-list>
+            </div>
+            <div id="projectListPop">
+                <div class="page-header">
+                    <h3>
+                        热门的项目
+                        <small>备受瞩目的项目，大家都在搞什么</small>
+                    </h3>
+                </div>
+                <project-list prefix="projectPop" project-list="projectListPop"></project-list>
+            </div>
+        </div>
+        <div class="col-md-3  hidden-print hidden-xs hidden-sm" role="complementary">
+            <div class="panel panel-default tag-panel">
+                <div class="panel-heading">
+                    热门标签
+                </div>
+                <div class="panel-body tag-list">
+                    <span class="info-item" ng-repeat="tag in tagListPop track by $index"><a
+                            href="/#/project/find?tab={{tag}}">{{tag}}</a></span>
+                </div>
+            </div>
+            <div id="side-affix" affix data-offset-top="220" data-offset-bottom="200">
+                <form class="well" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="查找项目...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"><span
+                                    class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
+                </form>
+                <nav class="bs-docs-sidebar">
+                    <ul id="sidebar" class="nav nav-stacked fixed">
+                        <li du-scrollspy="projectListOwn">
+                            <a href="#projectListOwn" du-smooth-scroll>我的项目</a>
+                            <ul du-spy-context="projectListOwn" class="nav nav-stacked">
+                                <li ng-repeat="projectItem in projectListOwn"
+                                    du-scrollspy="projectOwn-{{projectItem.id}}">
+                                    <a
+                                            href="#projectOwn-{{projectItem.id}}"
+                                            du-smooth-scroll>{{projectItem.title}}</a></li>
+                            </ul>
+                        </li>
+                        <li du-scrollspy="projectListJoin">
+                            <a href="#projectListJoin" du-smooth-scroll>我参与的项目</a>
+                            <ul du-spy-context="projectListJoin" class="nav nav-stacked">
+                                <li ng-repeat="projectItem in projectListJoin"
+                                    du-scrollspy="projectJoin-{{projectItem.id}}">
+                                    <a
+                                            href="#projectJoin-{{projectItem.id}}"
+                                            du-smooth-scroll>{{projectItem.title}}</a></li>
+                            </ul>
+                        </li>
+                        <li du-scrollspy="projectListFollow">
+                            <a href="#projectListFollow" du-smooth-scroll>我关注的项目</a>
+                            <ul du-spy-context="projectListFollow" class="nav nav-stacked">
+                                <li ng-repeat="projectItem in projectListFollow"
+                                    du-scrollspy="projectFollow-{{projectItem.id}}">
+                                    <a
+                                            href="#projectFollow-{{projectItem.id}}"
+                                            du-smooth-scroll>{{projectItem.title}}</a></li>
+                            </ul>
+                        </li>
+                        <li du-scrollspy="projectListPop">
+                            <a href="#projectListPop" du-smooth-scroll>热门的项目</a>
+                            <ul du-spy-context="projectListPop" class="nav nav-stacked">
+                                <li ng-repeat="projectItem in projectListPop"
+                                    du-scrollspy="projectPop-{{projectItem.id}}">
+                                    <a href="#projectPop-{{projectItem.id}}"
+                                       du-smooth-scroll>{{projectItem.title}}</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <a class="back-to-top" du-smooth-scroll="main">
+                        返回顶部
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

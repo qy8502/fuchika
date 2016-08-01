@@ -1,0 +1,6 @@
+dependencies {
+	compile project(":user:user-api")
+	compile project(":user:user-repository")
+    compile ("javax.mail:mail:1.4.3")
+    compile ("org.apache.velocity:velocity:1.7")
+}

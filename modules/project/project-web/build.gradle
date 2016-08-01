@@ -1,0 +1,4 @@
+dependencies {
+	compile project(':user:user-web')
+	compile project(':project:project-impl')
+}

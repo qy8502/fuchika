@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>咐叱喀 - 分享你的项目，快快把它完成</title>
+    <meta name="applicable-device" content="pc">
+    <meta property="og:type" content="webpage">
+    <meta property="og:url" content="http://www.fuchika.com">
+    <meta property="og:title" content="咐叱喀 - 分享你的项目，快快把它完成">
+    <meta property="og:image" content="http://www.fuchika.com/img/logo.png">
+    <meta property="og:description"
+          content="告别拖延症，咒语“咐叱喀”！咐叱喀（FUCHIKA.COM）是一个通过交流分享自己参与的项目或个人的日程，促使自己完成目标的社交型网站。将你进行的项目或者下定决心要做到的事情至于阳光下晒晒晒，由群众们雪亮的眼睛来盯着你是否能说到做到，好面子的你还好意思偷懒拖延吗？！伙伴们是温馨加油，还是无情吐槽，就要看你的人品了。咐叱喀则会记录着你努力的过程，最终回顾完成目标的历程也会给你带来愉悦的成就感哦。">
+    <link rel="canonical" href="http://www.fuchika.com">
+    <meta name="keywords" content="咐叱喀,项目,日程,伙伴">
+    <meta name="description"
+          content="告别拖延症，咒语“咐叱喀”！咐叱喀（FUCHIKA.COM）是一个通过交流分享自己参与的项目或个人的日程，促使自己完成目标的社交型网站。将你进行的项目或者下定决心要做到的事情至于阳光下晒晒晒，由群众们雪亮的眼睛来盯着你是否能说到做到，好面子的你还好意思偷懒拖延吗？！伙伴们是温馨加油，还是无情吐槽，就要看你的人品了。咐叱喀则会记录着你努力的过程，最终回顾完成目标的历程也会给你带来愉悦的成就感哦。">
+    <meta name="application-name" content="咐叱喀 - 分享你的项目，快快把它完成">
+    <meta name="msapplication-TileColor" content="#ffdd00">
+    <meta name="msapplication-square70x70logo" content="http://www.fuchika.com/img/logo.png">
+
+
+    <link href="/img/favicon.png" rel="shortcut icon">
+    <!--<link href="//fonts.googleapis.com/css?family=Roboto|Montserrat:400,700|Open+Sans:400,300,600" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+    <link href="//cdn.jsdelivr.net/animatecss/3.2.0/animate.css" rel="stylesheet">-->
+    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="/css/angular-toastr.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+</head>
+<body>
+<div ng-controller="NavbarCtrl" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/#/">
+            <div class="navbar-logo"></div>
+            <i class="ion-ios7-pulse-strong"></i><b>咐叱喀</b><span class="info-item">alpha</span></a>
+        <button type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li ng-class="{ active: isActive('/')}"><a href="/#/">首页</a></li>
+            <li ng-class="{ active: isActive('/project')}"><a href="/#/project">项目</a></li>
+            <li ng-class="{ active: isActive('/schedule')}"><a href="/#/schedule">日程</a></li>
+            <li ng-class="{ active: isActive('/feed')}"><a href="/#/feed">动态</a></li>
+            <li ng-class="{ active: isActive('/partner')}"><a href="/#/partner">伙伴</a></li>
+        </ul>
+        <ul ng-if="!isAuthenticated" class="nav navbar-nav navbar-right">
+            <li ng-class="{ active: isActive('/login')}"><a href="/#/login">登录</a></li>
+            <li ng-class="{ active: isActive('/signup')}"><a href="/#/signup">注册</a></li>
+        </ul>
+        <ul ng-if="isAuthenticated" class="nav navbar-nav navbar-right">
+            <li ng-class="{ active: isActive('/profile')}"><a href="/#/profile"><img
+                    class="img-rounded navbar-user-picture"
+                    ng-src="{{currentUser.picture || '/img/user-picture.jpg'}}" errSrc="/img/user-picture.jpg"/><span
+                    class="hidden-sm">{{currentUser.displayName}}</span></a>
+            </li>
+            <li><a href="/#/logout">登出</a></li>
+        </ul>
+    </div>
+</div>
+<div id="main" ui-view></div>
+<footer class="footer" role="contentinfo">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="footer-about">
+                    <span><strong>Powered by Qu Yankai. </strong></span>
+                    <span>网站正在开发中……</span>
+                    <ul>
+                        <li><a href="/#/about">关于我们</a></li>
+                        <li><a href="mailto:fuchika@163.com">联系我们</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="footer-logo">
+                    <img src="/img/logo.png"> <h4>咐叱喀 FuChiKa.COM</h4>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="footer-share">
+                    <baidu-share data-tag="footer"
+                                 data="{'bdComment':'我要把我的计划弄到这里来执行，来跟我一起干吧！','bdDesc':'告别拖延症，咒语“咐叱喀”！咐叱喀（FUCHIKA.COM）是一个通过交流分享自己参与的项目或个人的日程，促使自己完成目标的社交型网站。将你进行的项目或者下定决心要做到的事情至于阳光下晒晒晒，由群众们雪亮的眼睛来盯着你是否能说到做到，好面子的你还好意思偷懒拖延吗？！伙伴们是温馨加油，还是无情吐槽，就要看你的人品了。咐叱喀则会记录着你努力的过程，最终回顾完成目标的历程也会给你带来愉悦的成就感哦。','bdUrl':'http://www.fuchika.com','bdPic':'http://www.fuchika.com/img/logo.png','bdSign':'off','bdStyle':'1','bdSize':'32'}">
+                        <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                        <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                        <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+                        <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+                        <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                        <a href="#" class="bds_more" data-cmd="more"></a></baidu-share>
+                </div>
+            </div>
+        </div>
+        <!-- <hr>
+         <div class="row footer-bottom">
+             <ul class="list-inline text-center">
+                 <li><a href="http://www.miibeian.gov.cn/" target="_blank">备案号</a></li><li>备案号</li>
+             </ul>
+         </div>-->
+    </div>
+</footer>
+<!-- Third-party Libraries -->
+<script src="/lib/jquery/dist/jquery.min.js"></script>
+<script src="/lib/moment/min/moment.min.js"></script>
+<script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/lib/angular/angular.min.js"></script>
+<script src="/lib/angular-animate/angular-animate.min.js"></script>
+<script src="/lib/angular-messages/angular-messages.min.js"></script>
+<script src="/lib/angular-resource/angular-resource.min.js"></script>
+<script src="/lib/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="/lib/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="/lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="/lib/angular-toastr/dist/angular-toastr.tpls.min.js"></script>
+<script src="/lib/angular-scroll/angular-scroll.min.js"></script>
+
+<!-- Application Code -->
+<script src="/js/app.js"></script>
+<script src="/js/directives/passwordStrength.js"></script>
+<script src="/js/directives/passwordMatch.js"></script>
+<script src="/js/directives/errSrc.js"></script>
+<script src="/js/directives/affix.js"></script>
+<script src="/js/directives/baiduShare.js"></script>
+<script src="/js/directives/projectList.js"></script>
+<script src="/js/controllers/home.js"></script>
+<script src="/js/controllers/login.js"></script>
+<script src="/js/controllers/signup.js"></script>
+<script src="/js/controllers/logout.js"></script>
+<script src="/js/controllers/profile.js"></script>
+<script src="/js/controllers/navbar.js"></script>
+<script src="/js/controllers/project.js"></script>
+<script src="/js/services/account.js"></script>
+<script src="/js/services/project.js"></script>
+</body>
+</html>

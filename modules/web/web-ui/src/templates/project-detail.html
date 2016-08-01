@@ -1,0 +1,141 @@
+<div class="container">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-8">
+                <h3>
+                    {{project.title}}
+                </h3>
+
+                <p>{{project.description}}</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="info-top">
+                    <span class="info-item">{{project.startDate | date:'yyyy年M月d日'}} 到 {{project.endDate | date:'yyyy年M月d日'}}</span>
+                    <span class="info-item">创建者：{{project.owner.name}}</span>
+                    <span class="info-item" ng-if="project.tags && project.tags.length">标签：
+                        <span ng-repeat="tag in project.tags">
+                            <a href="/#/project/find?tag={{tag}}">{{tag}}</a>
+                        </span>
+                    </span>
+                </div>
+                <baidu-share ng-if="project" class="pull-left" data-tag="project"
+                             data="{'bdComment':'这个项目很不错，一起关注一下吧！','bdText':project.title + ' - 咐叱喀','bdDesc':project.description,'bdPic':'http://www.fuchika.com/img/logo.png','bdSign':'off','bdStyle':'0','bdSize':'16'}">
+                    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                    <a href="#" class="bds_douban" data-cmd="tdouban" title="分享到豆瓣网"></a>
+                    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+                    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a></baidu-share>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary btn-xs"
+                            ng-class="{'active':project.isLike}"><span
+                            class="glyphicon glyphicon-flash" aria-hidden="true"></span>
+                        <strong>好 ({{project.likeCount}}) </strong>
+                    </button>
+                    <button type="button" class="btn btn-primary btn-xs"
+                            ng-class="{'active':project.isFollow}"><span
+                            class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                        <strong>关注 ({{project.followCount}}) </strong>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row" ng-if="gantt">
+        <div id="project-task" ng-class="{'hidden-xs hidden-sm':gantt.isShow}" class="col-md-6 ">
+            <div class="list-group task-list">
+                <div ng-repeat="t in project.tasks" id="task-{{t.id}}"
+                     ng-click="$parent.selectedTask=$parent.selectedTask==t?null:t"
+                     ng-class="{selected:$parent.selectedTask==t}"
+                     ng-dblclick="ganttScrollTo(t.lastToDo*29-gantt.width*0.3)"
+                     class="list-group-item list-item task-info">
+                    <div class="pull-right partner-img">
+                        <a href="/#/partner/{{t.worker.id}}">
+                            <img title="{{t.worker.name}}" class="img-rounded"
+                                 ng-src="{{t.worker.picture || '/img/user-picture.jpg'}}"
+                                 errSrc="/img/user-picture.jpg"/>
+                            <small>{{t.worker.name}}</small>
+                        </a>
+                    </div>
+                    <h5>
+                        <span class="glyphicon"
+                              ng-class="{'glyphicon-fire':!t.isCompleted,'glyphicon-ok':!!t.isCompleted}"></span>
+                        <a href="/#/task/{{project.id}}/{{t.id}}">{{t.title}}</a></h5>
+
+                    <span class="info-item">{{t.startDate | date:'yyyy年M月d日'}} 到 {{t.endDate | date:'yyyy年M月d日'}}</span>
+                    <span class="info-item">{{getRepertMode(t.repertType,t.repertValue)}}</span>
+                    <span class="info-item">{{t.startTime}} 到 {{t.endTime}}</span>
+
+                </div>
+                <div class="list-group-item list-item task-scrollbar" height-scrollbar></div>
+            </div>
+            <div affix data-width-target="project-task" data-offset-target="project-task"
+                 data-offset-target-scrollbar="true" data-offset-top="149"
+                 data-offset-bottom="99" class="project-task-toolbar panel panel-default">
+                <div class="project-task-toolbar-header">
+                    <h5>任务列表
+                        <small class="hidden-md hidden-lg"><a ng-click="gantt.isShow=!gantt.isShow">甘特图</a></small>
+                    </h5>
+                </div>
+                <div class="toolbar">
+                    <button class="btn btn-default btn-sm" ng-class="{disabled:!selectedTask}" type="button"><span
+                            class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span> 下移
+                    </button>
+                    <button class="btn btn-default btn-sm" ng-class="{disabled:!selectedTask}" type="button"><span
+                            class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true"></span> 上移
+                    </button>
+                    <button class="btn btn-default btn-sm" ng-class="{disabled:!selectedTask}" type="button"><span
+                            class="glyphicon glyphicon-minus" aria-hidden="true"></span> 删除
+                    </button>
+                    <button class="btn btn-default btn-sm" type="button"><span class="glyphicon glyphicon-plus"
+                                                                               aria-hidden="true"></span> <span
+                            ng-if="selectedTask">向上</span>添加</button>
+                </div>
+            </div>
+        </div>
+        <div id="project-gantt" ng-class="{'hidden-xs hidden-sm':!gantt.isShow}" class="col-md-6">
+            <div id="task-gantt-list" class="task-gantt-list panel panel-default" affix-scrollbar data-min-height="76">
+                <div ng-repeat="t in project.tasks" id="task-gantt-{{t.id}}" class="task-gantt-info"
+                     ng-style="{width:$parent.gantt.days.length*29+35+'px'}">
+                    <div class="gantt-day" ng-repeat="day in $parent.gantt.days"
+                         title="{{day.moment.format('YYYY年M月D日')}}"
+                         ng-class="{'gantt-day-weekend':day.isWeekend,'gantt-day-bigline':day.isBigline,'gantt-day-today':day.isToday}">
+                        <div ng-if="t.dailyWork(day)" class="gantt-bar"
+                             ng-class="{'gantt-bar-start':t.isStart(day),'gantt-bar-end':t.isEnd(day),'gantt-bar-completed':t.dailyWork(day).isCompleted,'gantt-bar-terminated':t.dailyWork(day).isTerminated && !t.dailyWork(day).isCompleted}">
+
+                        </div>
+                    </div>
+                    <div class="gantt-tooltip" ng-if="t.showTitle"
+                         ng-style="{left:t.showTitleDayIndex*29+15+'px'}">
+                        <div ng-style="{'max-width':$parent.gantt.width*0.7+'px'}">{{t.title}}</div>
+                        <img title="{{t.worker.name}}"
+                             ng-src="{{t.worker.picture || '/img/user-picture.jpg'}}"
+                             errSrc="/img/user-picture.jpg"/></div>
+                </div>
+            </div>
+            <div affix data-width-target="project-gantt" data-offset-target="project-gantt"
+                 data-offset-target-scrollbar="true" data-offset-top="149"
+                 data-offset-bottom="99" class="project-task-toolbar panel panel-default">
+                <div class="project-task-toolbar-header">
+                    <h5>甘特图
+                        <small class="hidden-md hidden-lg"><a ng-click="gantt.isShow=!gantt.isShow">任务列表</a></small>
+                    </h5>
+                </div>
+                <div id="task-gantt-days" class="task-gantt-days" scroll-sync="task-gantt-list"
+                     scrolled="ganttScrolled((left-15)/29,(left-15+width)/29,width)">
+                    <div class="task-gantt-info"
+                         ng-style="{width:gantt.days.length*29+35+'px'}">
+                        <div class="gantt-day" ng-repeat="day in gantt.days"
+                             ng-class="{'gantt-day-weekend':day.isWeekend,'gantt-day-bigline':day.isBigline,'gantt-day-today':day.isToday}">
+                            <span><strong> {{day.isBigline ? day.moment.format("YYYY年M月D日") : "" }}</strong></span>
+                            <span> {{day.moment.format("D日");}}</span>
+                            <span> <i>{{day.weekday}}</i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

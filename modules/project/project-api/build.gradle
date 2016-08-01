@@ -1,0 +1,5 @@
+dependencies {
+	compile project (":common:common-api")
+	compile project (":user:user-api")
+	compile project (":project:project-model")
+}
