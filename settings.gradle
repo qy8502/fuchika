@@ -17,7 +17,7 @@ include "project:project-web"
 include "web:web-site"
 include "web:web-ui"
 
-rootProject.name = 'fuchika' 
+rootProject.name = 'fuchika'
 
 configureProjects( rootProject )
 
