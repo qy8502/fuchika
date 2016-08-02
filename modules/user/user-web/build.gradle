@@ -1,4 +1,5 @@
 dependencies {
+	compile project(':common:common-web')
 	compile project(':user:user-impl')
 	compile("org.springframework.security:spring-security-config:${springSecurityVersion}"){
 		exclude group:"org.springframework"
