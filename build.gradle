@@ -18,7 +18,8 @@ subprojects {
 	}
 
     repositories {
-       mavenCentral()
+    	maven { url "https://maven-central.storage.googleapis.com/" }
+    	mavenCentral()
     }
 
     dependencies {
