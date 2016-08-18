@@ -1,7 +1,7 @@
 angular.module('MyApp')
-    .service('AccountService', ['$q', '$http','$httpParamSerializerJQLike', 'AppConfig', 'AccountConfig', 'AccountUtils', 'AccountShared', 'AccountOauth1', 'AccountOauth2',
-        function ($q, $http,$httpParamSerializerJQLike, appConfig, config, utils, shared, Oauth1, Oauth2) {
-            return  {
+    .service('AccountService', ['$q', '$http', '$httpParamSerializerJQLike', 'AppConfig', 'AccountConfig', 'AccountUtils', 'AccountShared', 'AccountOauth1', 'AccountOauth2',
+        function ($q, $http, $httpParamSerializerJQLike, appConfig, config, utils, shared, Oauth1, Oauth2) {
+            return {
                 currentUser: function () {
                     return shared.getCurrentUser();
                 },
@@ -17,7 +17,7 @@ angular.module('MyApp')
                 login: function (user) {
                     var thisService = this;
                     var deferred = $q.defer();
-                    var opts = {headers: { 'Content-Type': 'application/x-www-form-urlencoded'}};
+                    var opts = {headers: {'Content-Type': 'application/x-www-form-urlencoded'}};
                     opts.headers[config.authHeader] = config.authClientToken;
                     user.grant_type = 'password';
                     $http.post(appConfig.apiBaseUrl + '/oauth/token', $httpParamSerializerJQLike(user), opts)
@@ -183,7 +183,7 @@ angular.module('MyApp')
                 scopeDelimiter: ',',
                 display: 'popup',
                 type: '2.0',
-                popupOptions: { width: 580, height: 400 }
+                popupOptions: {width: 580, height: 400}
             },
             google: {
                 name: 'google',
@@ -198,7 +198,7 @@ angular.module('MyApp')
                 scopeDelimiter: ' ',
                 display: 'popup',
                 type: '2.0',
-                popupOptions: { width: 452, height: 633 }
+                popupOptions: {width: 452, height: 633}
             },
             github: {
                 name: 'github',
@@ -209,7 +209,7 @@ angular.module('MyApp')
                 scope: ['user:email'],
                 scopeDelimiter: ' ',
                 type: '2.0',
-                popupOptions: { width: 1020, height: 618 }
+                popupOptions: {width: 1020, height: 618}
             },
             instagram: {
                 name: 'instagram',
@@ -230,7 +230,7 @@ angular.module('MyApp')
                 scopeDelimiter: ' ',
                 state: 'STATE',
                 type: '2.0',
-                popupOptions: { width: 527, height: 582 }
+                popupOptions: {width: 527, height: 582}
             },
             twitter: {
                 name: 'twitter',
@@ -238,7 +238,7 @@ angular.module('MyApp')
                 authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
                 redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host,
                 type: '1.0',
-                popupOptions: { width: 495, height: 645 }
+                popupOptions: {width: 495, height: 645}
             },
             twitch: {
                 name: 'twitch',
@@ -250,7 +250,7 @@ angular.module('MyApp')
                 scopeDelimiter: ' ',
                 display: 'popup',
                 type: '2.0',
-                popupOptions: { width: 500, height: 560 }
+                popupOptions: {width: 500, height: 560}
             },
             live: {
                 name: 'live',
@@ -262,7 +262,7 @@ angular.module('MyApp')
                 scopeDelimiter: ' ',
                 display: 'popup',
                 type: '2.0',
-                popupOptions: { width: 500, height: 560 }
+                popupOptions: {width: 500, height: 560}
             },
             yahoo: {
                 name: 'yahoo',
@@ -272,7 +272,7 @@ angular.module('MyApp')
                 scope: [],
                 scopeDelimiter: ',',
                 type: '2.0',
-                popupOptions: { width: 559, height: 519 }
+                popupOptions: {width: 559, height: 519}
             }
         }
     })
@@ -801,6 +801,9 @@ angular.module('MyApp')
                     return request;
                 },
                 responseError: function (response) {
+                    if (response.status == 401) {
+                        shared.logout();
+                    }
                     return $q.reject(response);
                 }
             };

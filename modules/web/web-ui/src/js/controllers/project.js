@@ -2,7 +2,6 @@ angular.module('MyApp')
     .controller('ProjectCtrl', function ($state, $scope, $uibModal, $log, ProjectService, AppMessager) {
 
         //$('#side-affix').affix({ offset: { top: 220, bottom: 200 } });
-
         ProjectService.getTagListPop()
             .then(function (response) {
                 $scope.tagListPop = response.data;
@@ -177,8 +176,8 @@ angular.module('MyApp')
                  task.dailyWorks[taskStartDate.valueOf()] = {
                  "id": task.id + taskStartDate.valueOf(),
                  "date": taskStartDate.clone().toDate(),
-                 "isCompleted": taskStartDate.isBefore(moment()) && !taskStartDate.isSame(moment().add(-2, 'day'), 'day'),
-                 "isTerminated": taskStartDate.isSame(moment().add(-2, 'day'), 'day') || taskStartDate.isSame(moment().add(-1, 'day'), 'day')};
+                 "completed": taskStartDate.isBefore(moment()) && !taskStartDate.isSame(moment().add(-2, 'day'), 'day'),
+                 "terminated": taskStartDate.isSame(moment().add(-2, 'day'), 'day') || taskStartDate.isSame(moment().add(-1, 'day'), 'day')};
                  }
                  taskStartDate.add(1, 'days');
                  }
@@ -199,7 +198,7 @@ angular.module('MyApp')
                     angular.forEach(task.dailyWorks, function (work, key) {
                         key = parseInt(key);
                         lastday = lastday > key ? lastday : key;
-                        if (!work.isTerminated && !work.isCompleted) {
+                        if (!work.terminated && !work.completed) {
                             lasttodo = lasttodo < key ? lasttodo : key;
                         }
                     });

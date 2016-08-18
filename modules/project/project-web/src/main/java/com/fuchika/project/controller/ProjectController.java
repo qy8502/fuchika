@@ -1,6 +1,7 @@
 package com.fuchika.project.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
 
@@ -40,5 +41,15 @@ public class ProjectController extends BaseController {
 			throws ValidationException, UserNotFoundException {
 		User requestingUser = loadUserFromPrincipal(principal);
 		return projectService.createProject(requestingUser.getId(), request);
+	}
+	
+
+	@RolesAllowed({ "ROLE_USER" })
+	@RequestMapping(value = "/list/own", method = RequestMethod.GET)
+	@ResponseBody
+	public List<ApiProejct> createProject(Principal principal)
+			throws ValidationException, UserNotFoundException {
+		User requestingUser = loadUserFromPrincipal(principal);
+		return projectService.getProjectListOwn(requestingUser.getId());
 	}
 }

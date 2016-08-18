@@ -10,12 +10,12 @@
             "name": "曲延凯",
             "picture": ""
         },
-        "isCompleted": false,
-        "isTerminated": false,
-        "isLike": true,
-        "likeCount": 10,
-        "isFollow": false,
-        "followCount": 6,
+        "completed": false,
+        "terminated": false,
+        "liked": true,
+        "likedCount": 10,
+        "followed": false,
+        "followedCount": 6,
         "tags": ["软件", "网站", "咐叱喀", "工作效率", "合作"],
         "partners": [
             {
@@ -101,12 +101,12 @@
             "name": "曲延凯",
             "picture": ""
         },
-        "isCompleted": false,
-        "isTerminated": true,
-        "isLike": false,
-        "likeCount": 2,
-        "isFollow": false,
-        "followCount": 3,
+        "completed": false,
+        "terminated": true,
+        "liked": false,
+        "likedCount": 2,
+        "followed": false,
+        "followedCount": 3,
         "tags": ["健身"],
         "partners": [
             {
@@ -127,12 +127,12 @@
             "name": "曲延凯",
             "picture": ""
         },
-        "isCompleted": true,
-        "isTerminated": false,
-        "isLike": true,
-        "likeCount": 213,
-        "isFollow": true,
-        "followCount": 421,
+        "completed": true,
+        "terminated": false,
+        "liked": true,
+        "likedCount": 213,
+        "followed": true,
+        "followedCount": 421,
         "tags": ["软件", "网站", "AngularJS"],
         "partners": [
             {

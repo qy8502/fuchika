@@ -1,5 +1,6 @@
 package com.fuchika.project.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -49,9 +50,8 @@ public class Project extends BaseEntity {
 		this.tags = (List<String>) dbObject.get("tags");
 		this.tasks = (List<String>) dbObject.get("tasks");
 		this.partners = (List<String>) dbObject.get("partners");
-		
-	}
 
+	}
 
 	public String getTitle() {
 		return title;
@@ -118,6 +118,8 @@ public class Project extends BaseEntity {
 	}
 
 	public List<String> getTags() {
+		if (tags == null)
+			tags = new ArrayList<String>();
 		return tags;
 	}
 
@@ -126,6 +128,8 @@ public class Project extends BaseEntity {
 	}
 
 	public List<String> getTasks() {
+		if (tasks == null)
+			tasks = new ArrayList<String>();
 		return tasks;
 	}
 
@@ -134,6 +138,8 @@ public class Project extends BaseEntity {
 	}
 
 	public List<String> getPartners() {
+		if (partners == null)
+			partners = new ArrayList<String>();
 		return partners;
 	}
 
@@ -141,5 +147,4 @@ public class Project extends BaseEntity {
 		this.partners = partners;
 	}
 
-	
 }

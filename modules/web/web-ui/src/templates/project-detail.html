@@ -29,14 +29,14 @@
                     <a href="#" class="bds_more" data-cmd="more"></a></baidu-share>
                 <div class="pull-right">
                     <button type="button" class="btn btn-primary btn-xs"
-                            ng-class="{'active':project.isLike}"><span
+                            ng-class="{'active':project.liked}"><span
                             class="glyphicon glyphicon-flash" aria-hidden="true"></span>
-                        <strong>好 ({{project.likeCount}}) </strong>
+                        <strong>好 ({{project.likedCount}}) </strong>
                     </button>
                     <button type="button" class="btn btn-primary btn-xs"
-                            ng-class="{'active':project.isFollow}"><span
+                            ng-class="{'active':project.followed}"><span
                             class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                        <strong>关注 ({{project.followCount}}) </strong>
+                        <strong>关注 ({{project.followedCount}}) </strong>
                     </button>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                     </div>
                     <h5>
                         <span class="glyphicon"
-                              ng-class="{'glyphicon-fire':!t.isCompleted,'glyphicon-ok':!!t.isCompleted}"></span>
+                              ng-class="{'glyphicon-fire':!t.completed,'glyphicon-ok':!!t.completed}"></span>
                         <a href="/#/task/{{project.id}}/{{t.id}}">{{t.title}}</a></h5>
 
                     <span class="info-item">{{t.startDate | date:'yyyy年M月d日'}} 到 {{t.endDate | date:'yyyy年M月d日'}}</span>
@@ -103,7 +103,7 @@
                          title="{{day.moment.format('YYYY年M月D日')}}"
                          ng-class="{'gantt-day-weekend':day.isWeekend,'gantt-day-bigline':day.isBigline,'gantt-day-today':day.isToday}">
                         <div ng-if="t.dailyWork(day)" class="gantt-bar"
-                             ng-class="{'gantt-bar-start':t.isStart(day),'gantt-bar-end':t.isEnd(day),'gantt-bar-completed':t.dailyWork(day).isCompleted,'gantt-bar-terminated':t.dailyWork(day).isTerminated && !t.dailyWork(day).isCompleted}">
+                             ng-class="{'gantt-bar-start':t.isStart(day),'gantt-bar-end':t.isEnd(day),'gantt-bar-completed':t.dailyWork(day).completed,'gantt-bar-terminated':t.dailyWork(day).terminated && !t.dailyWork(day).completed}">
 
                         </div>
                     </div>

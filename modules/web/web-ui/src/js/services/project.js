@@ -6,7 +6,7 @@ angular.module('MyApp')
                     return $http.post(appConfig.apiBaseUrl + '/project/', requestData);
                 },
                 getProjectListOwn: function () {
-                    return $http.get('/test/projectListOwn.json');
+                    return $http.get(appConfig.apiBaseUrl + '/project/list/own');
                 },
                 getProjectListJoin: function () {
                     return $http.get('/test/projectListOwn.json');

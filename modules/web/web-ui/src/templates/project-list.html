@@ -3,19 +3,19 @@
          class="list-group-item list-item">
         <div class="row">
             <div class="col-md-9 project-info"><h4><span class="glyphicon"
-                                                         ng-class="{'glyphicon-fire':!projectItem.isCompleted,'glyphicon-ok':!!projectItem.isCompleted}"></span>
+                                                         ng-class="{'glyphicon-fire':!projectItem.completed,'glyphicon-ok':!!projectItem.completed}"></span>
                 <a href="/#/project/{{projectItem.id}}">{{projectItem.title}}</a></h4>
 
                 <div class="info-top">
                     <div class="pull-right">
                         <button type="button" class="btn btn-primary btn-xs"
-                                ng-class="{'active':projectItem.isLike}"><span
+                                ng-class="{'active':projectItem.liked}"><span
                                 class="glyphicon glyphicon-flash" aria-hidden="true"></span>
-                            <strong>好 ({{projectItem.likeCount}}) </strong>
+                            <strong>好 ({{projectItem.likedCount}}) </strong>
                         </button>
-                        <button type="button" class="btn btn-primary btn-xs" ng-class="{'active':projectItem.isFollow}"><span
+                        <button type="button" class="btn btn-primary btn-xs" ng-class="{'active':projectItem.followed}"><span
                                 class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                            <strong>关注 ({{projectItem.followCount}}) </strong>
+                            <strong>关注 ({{projectItem.followedCount}}) </strong>
                         </button>
                     </div>
                     <span class="info-item">{{projectItem.startDate | date:'yyyy年M月d日'}} 到 {{projectItem.endDate | date:'yyyy年M月d日'}}</span>

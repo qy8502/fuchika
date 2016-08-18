@@ -19,6 +19,10 @@ public class ApiProejct {
 	private ApiUserSimple owner;
 	private boolean completed = false;
 	private boolean terminated = false;
+	private long likedCount = 0;
+	private boolean liked = false;
+	private long followedCount = 0;
+	private boolean followed = false;
 	private boolean deleted = false;
 	private List<String> tags;
 	private List<ApiUserSimple> partners;
@@ -27,10 +31,16 @@ public class ApiProejct {
 	public ApiProejct() {
 	}
 
-	public ApiProejct(final Project project, ApiUserSimple owner, List<ApiUserSimple> partners, List<ApiTask> tasks) {
+	public ApiProejct(final Project project, ApiUserSimple owner, List<ApiUserSimple> partners, long likedCount,
+			long followedCount, boolean liked, boolean followed, List<ApiTask> tasks) {
+		this(project, owner, partners, likedCount, followedCount, liked, followed);
+		this.tasks = tasks;
+	}
+
+	public ApiProejct(final Project project, ApiUserSimple owner, List<ApiUserSimple> partners, long likedCount,
+			long followedCount, boolean liked, boolean followed) {
 		this(project, owner);
 		this.partners = partners;
-		this.tasks = tasks;
 	}
 
 	public ApiProejct(final Project project, ApiUserSimple owner) {
@@ -108,6 +118,38 @@ public class ApiProejct {
 
 	public void setTerminated(boolean terminated) {
 		this.terminated = terminated;
+	}
+
+	public long getLikedCount() {
+		return likedCount;
+	}
+
+	public void setLikedCount(long likedCount) {
+		this.likedCount = likedCount;
+	}
+
+	public boolean isLiked() {
+		return liked;
+	}
+
+	public void setLiked(boolean liked) {
+		this.liked = liked;
+	}
+
+	public long getFollowedCount() {
+		return followedCount;
+	}
+
+	public void setFollowedCount(long followedCount) {
+		this.followedCount = followedCount;
+	}
+
+	public boolean isFollowed() {
+		return followed;
+	}
+
+	public void setFollowed(boolean followed) {
+		this.followed = followed;
 	}
 
 	public boolean isDeleted() {

@@ -81,17 +81,22 @@ angular.module('MyApp', ['ngResource', 'ngMessages', 'ngAnimate', 'ui.router', '
             } else {
                 AppMessager.error("用户尚未登录，请先登录网站。", 401);
                 var url = encodeURIComponent($location.url());
-                $location.path('/login').search({url: url });
+                $location.path('/login').search({url: url});
             }
             return deferred.promise;
         }
     })
-    .factory('AppMessager', ['toastr', function (toastr) {
+    .factory('AppMessager', ['toastr', '$location', function (toastr, $location) {
         var messager = {
             errorResponse: function (response, defaultMessage) {
                 defaultMessage = defaultMessage || "发生意外错误... (⊙⊙！) "
                 var that = this;
-                if (response.data) {
+                if (response.status == 401) {
+                    var url = encodeURIComponent($location.url());
+                    that.error('当前登录状态已经失效，请<a href="/#/login?url=' + url + '">重新登录</a>。', response.status.toString(), {
+                        allowHtml: true
+                    });
+                } else if (response.data) {
                     if (response.data.validationErrors && response.data.validationErrors.length) {
                         angular.forEach(response.data.validationErrors, function (item) {
                             that.error(item.message, response.status);
