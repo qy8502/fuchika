@@ -1,4 +1,4 @@
-package com.fuchika.project.model;
+package com.fuchika.project.model; 
 
 import org.springframework.data.mongodb.core.mapping.Document;
 

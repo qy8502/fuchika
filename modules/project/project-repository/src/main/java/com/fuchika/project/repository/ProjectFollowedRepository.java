@@ -1,6 +1,6 @@
 package com.fuchika.project.repository;
 
-import java.util.List;
+import java.util.List; 
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
