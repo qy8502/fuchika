@@ -1,6 +1,4 @@
-
-/.idea/*
-/bin/*
 /build/*
+/bin/*
 /.settings/*
 /.gradle/*
