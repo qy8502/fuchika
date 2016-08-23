@@ -1,8 +1,0 @@
-apply plugin: "war"
-apply plugin: "eclipse-wtp"
-apply plugin: 'jetty'
-
-dependencies {
-	compile project(':user:user-web')
-	compile project(':project:project-web')
-}
